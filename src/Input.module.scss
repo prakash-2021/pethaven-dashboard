@@ -1,0 +1,99 @@
+.textInput {
+  height: 40px;
+  border: 1px solid var(--mantine-color-neutral-6);
+
+  &::placeholder {
+    // this color will change the placeholder color of the search fields
+    color: var(--mantine-color-neutral-8);
+  }
+
+  &:focus-within {
+    border: 1px solid var(--mantine-color-neutral-4);
+  }
+
+  &[data-error] {
+    border-color: #ea3829;
+    color: #ea3829;
+  }
+
+  &:disabled {
+    border: 1px solid var(--mantine-color-neutral-1) !important;
+    background-color: var(--mantine-color-neutral-2);
+    cursor: not-allowed;
+
+    &::placeholder {
+      color: var(--mantine-color-neutral-8);
+    }
+  }
+}
+
+.passwordInnerInput {
+  &::placeholder {
+    line-height: 20px;
+    // this will change the color of login and settings fields
+    color: var(--mantine-color-neutral-8);
+  }
+}
+
+.checkbox {
+  input:where([data-mantine-color-scheme="light"]) {
+    border-width: 15px !important;
+  }
+
+  &:disabled {
+    border-color: var(--mantine-color-neutral-1) !important;
+    background-color: var(--mantine-color-neutral-2);
+    cursor: not-allowed;
+  }
+}
+
+:where([data-mantine-color-scheme="light"]) .checkbox {
+  border-width: 1.5px !important;
+}
+
+:global(.mantine-DatePickerInput-input),
+:global(.mantine-Select-input),
+:global(.mantine-NumberInput-input) {
+  border: 1px solid var(--mantine-color-neutral-9);
+
+  &:focus-within {
+    border: 1px solid var(--mantine-color-neutral-4);
+  }
+}
+
+.button {
+  &[data-variant="light"] {
+    color: var(--mantine-color-neutral-4);
+    background-color: var(--mantine-color-neutral-7);
+
+    &:hover {
+      color: black;
+      background-color: var(--mantine-color-neutral-9);
+    }
+  }
+}
+
+.searchInput {
+  padding-left: 44px;
+  border: 1px solid var(--mantine-color-neutral-9);
+
+  &:focus-within {
+    border: 1px solid var(--mantine-color-neutral-4);
+  }
+}
+
+.chart-grid-text-colors {
+  --chart-grid-color: var(--mantine-color-neutral-9);
+  --chart-text-color: var(--mantine-color-neutral-8);
+}
+
+[data-mantine-color-scheme="dark"] .chart-grid-text-colors {
+  --chart-grid-color: var(--mantine-color-neutral-8);
+  --chart-text-color: var(--mantine-color-neutral-8);
+}
+
+.actionIcon {
+  &:hover {
+    background-color: var(--mantine-color-neutral-7);
+  }
+}

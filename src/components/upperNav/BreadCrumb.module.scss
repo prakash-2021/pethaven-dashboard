@@ -1,0 +1,8 @@
+.breadcrumbLink {
+  color: var(--mantine-color-neutral-5);
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: black;
+  }
+}

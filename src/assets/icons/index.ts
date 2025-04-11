@@ -1,0 +1,12 @@
+export * from "./IconComputer"
+export * from "./IconContentPaste"
+export * from "./IconDelete"
+export * from "./IconDoorFront"
+export * from "./IconEyeTracking"
+export * from "./IconInventory2"
+export * from "./IconLeftArrowAlt"
+export * from "./IconLocalMall"
+export * from "./IconMonitoring"
+export * from "./IconPerson"
+export * from "./IconSearch"
+

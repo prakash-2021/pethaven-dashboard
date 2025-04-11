@@ -1,0 +1,148 @@
+.root {
+  padding: 0;
+  height: 36px;
+  width: 512px;
+  padding-inline: 12px;
+  align-items: center;
+  gap: 12px;
+
+  .wrapper {
+    height: 36px;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between;
+  }
+
+  .closeButton {
+    margin: 0;
+    color: var(--mantine-color-neutral-8);
+  }
+
+  .icon {
+    background-color: transparent;
+    margin: 0;
+  }
+
+  &[data-variant="yellow"] {
+    background-color: var(--mantine-color-yellow-1);
+
+    .icon {
+      color: var(--mantine-color-yellow-7);
+      background-color: transparent;
+    }
+  }
+
+  &[data-variant="success"] {
+    background-color: var(--mantine-color-green-1);
+    border-color: var(--mantine-color-green-5);
+
+    .icon {
+      color: var(--mantine-color-green-7);
+    }
+
+    .message {
+      color: var(--mantine-color-green-9);
+    }
+  }
+
+  &[data-variant="danger"] {
+    background-color: var(--mantine-color-red-1);
+    border-color: var(--mantine-color-red-5);
+    max-width: 612px;
+
+    .icon {
+      color: var(--mantine-color-red-7);
+    }
+
+    .message {
+      color: var(--mantine-color-red-9);
+    }
+  }
+
+  &[data-variant="info"] {
+    background-color: var(--mantine-color-blue-1);
+    border-color: var(--mantine-color-blue-5);
+
+    .icon {
+      color: var(--mantine-color-blue-7);
+    }
+
+    .message {
+      color: var(--mantine-color-blue-9);
+    }
+  }
+
+  &[data-variant="subtle"] {
+    background-color: transparent;
+    border-left: 4px solid;
+    border-radius: 0;
+
+    @mixin light {
+      border-color: var(--mantine-color-gray-5);
+
+      .icon,
+      .message {
+        color: var(--mantine-color-gray-8);
+      }
+    }
+
+    @mixin dark {
+      border-color: var(--mantine-color-dark-4);
+
+      .icon,
+      .message {
+        color: var(--mantine-color-dark-0);
+      }
+    }
+  }
+
+  &[data-size="xs"] {
+    padding: var(--mantine-spacing-xs);
+
+    .icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .message {
+      font-size: var(--mantine-font-size-xs);
+    }
+  }
+
+  &[data-size="sm"] {
+    padding: var(--mantine-spacing-sm);
+
+    .icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .message {
+      font-size: var(--mantine-font-size-sm);
+    }
+  }
+
+  &[data-size="md"] {
+    padding: var(--mantine-spacing-md);
+
+    .icon {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  &[data-size="lg"] {
+    padding: var(--mantine-spacing-lg);
+
+    .icon {
+      width: 26px;
+      height: 26px;
+    }
+
+    .message {
+      font-size: var(--mantine-font-size-lg);
+    }
+  }
+}

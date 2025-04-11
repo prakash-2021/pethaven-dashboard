@@ -1,0 +1,68 @@
+.loginWrapper {
+  min-height: 100dvh;
+  background-size: cover;
+  background-color: rgba(248, 248, 248, 1);
+}
+
+.form {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  width: 55vw;
+  padding-top: 80px;
+
+  @media (max-width: mantine-breakpoint-xs) {
+    max-width: 100%;
+  }
+}
+
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-family: Inter, var(--mantine-font-family);
+  font-size: 44px;
+  line-height: 53px;
+  font-weight: 500;
+}
+
+.form_wrapper {
+  width: 100%;
+}
+
+.input,
+:global(.mantine-TextInput-input).input,
+:global(.mantine-PasswordInput-input).input {
+  height: 44px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--mantine-color-neutral-3);
+}
+
+/* Need to remove this in the latest */
+/* :global(.mantine-PasswordInput-input) {
+  height: 44px !important;
+} */
+
+.wrapper {
+  height: 44px;
+}
+
+.input::placeholder {
+  color: var(--mantine-color-neutral-8);
+}
+
+.input:focus-within,
+:global(.mantine-TextInput-input).input:focus-within,
+:global(.mantine-PasswordInput-input).input:focus-within {
+  border: 1px solid var(--mantine-color-neutral-4) !important;
+}
+
+.label {
+  margin-bottom: 0.5rem;
+}
+
+:global(.mantine-PasswordInput-innerInput).passwordInnerInput {
+  height: 44px;
+}
+
+:global(.mantine-PasswordInput-innerInput).passwordInnerInput {
+  height: 44px;
+}

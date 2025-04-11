@@ -1,0 +1,92 @@
+.navbar {
+  padding-inline: var(--mantine-spacing-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.navbarMain {
+  flex: 1;
+}
+
+.header {
+  padding-bottom: var(--mantine-spacing-md);
+  margin-bottom: calc(var(--mantine-spacing-md) * 1.5);
+  border-bottom: 1px solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+}
+
+.footer {
+  padding-top: var(--mantine-spacing-md);
+  margin-top: var(--mantine-spacing-md);
+  border-top: 1px solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+}
+
+.link {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 1px 2px 0 5 red;
+  text-decoration: none;
+  margin-bottom: var(--mantine-spacing-xxs);
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-black);
+  padding: var(--mantine-spacing-xxs) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-md);
+  font-weight: 500;
+  letter-spacing: 0.05px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s cubic-bezier(0.65, 0, 0.35, 1),
+    color 0.2s ease;
+
+  &--nested {
+    @extend .link;
+    padding-left: 52px;
+    color: var(--mantine-color-neutral-4);
+    font-weight: 400;
+  }
+
+  @mixin hover {
+    background-color: light-dark(
+      var(--mantine-color-white),
+      var(--mantine-color-white)
+    );
+    color: light-dark(var(--mantine-color-gray-9), var(--mantine-color-white));
+
+    .linkIcon {
+      color: light-dark(var(--mantine-color-customColor-9));
+    }
+  }
+
+  &:hover {
+    @include hover();
+  }
+
+  &[data-active],
+  &--nested[data-active] {
+    box-shadow: 1px 2px 5px 0px #00000014;
+    &,
+    &:hover {
+      color: var(--mantine-color-customColor-6);
+      background-color: var(--mantine-color-white);
+
+      .linkIcon {
+        color: var(--mantine-color-black-light-color);
+      }
+    }
+  }
+}
+
+.linkIcon {
+  min-width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  // margin-right: var(--mantine-spacing-md);
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+  margin-left: auto;
+}
