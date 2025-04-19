@@ -48,6 +48,7 @@ function RouteComponent() {
 
   const handleLogin = () => {
     setShowError(true);
+    navigate({ to: "/" });
   };
 
   // useEffect(() => {
@@ -65,12 +66,12 @@ function RouteComponent() {
   return (
     <div className={classes.loginWrapper}>
       <Flex justify="space-between" align="center" direction="row">
-        <Box w={236} h={54} mx={"auto"}>
+        <Box w={600} h={54} mx={"auto"}>
           <picture>
-            <source srcSet="/logo.avif" type="image/avif" />
+            <source srcSet="/logo.svg" type="image/avif" />
             <img
-              src="/logo.png"
-              width="236"
+              src="/logo.svg"
+              width="600"
               height="54"
               alt="pethaven logo"
               loading="eager"

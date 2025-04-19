@@ -119,7 +119,7 @@ function RouteComponent() {
             <Text>Gender: {data.gender}</Text>
             <Text>Size: {data.size}</Text>
             <Text>Color: {data.color}</Text>
-            <Text>Health Status: {data.healthStatus}</Text>
+            <Text>Details: {data.healthStatus}</Text>
             <Text>Adoption Status: {data.adoptionStatus}</Text>
           </Stack>
           {!!editedPet && (
@@ -179,7 +179,7 @@ function RouteComponent() {
                   }
                 />
                 <TextInput
-                  label="Health Status"
+                  label="Pet details, Health Status"
                   value={editedPet.healthStatus}
                   onChange={(e) =>
                     setEditedPet({ ...editedPet, healthStatus: e.target.value })

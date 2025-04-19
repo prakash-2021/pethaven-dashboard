@@ -1,5 +1,6 @@
 import { useCreateQuiz, useGetAllQuiz } from "@/api/quiz";
 import {
+  Badge,
   Button,
   Card,
   Container,
@@ -55,9 +56,13 @@ function RouteComponent() {
                 mb={12}
                 style={{ cursor: "pointer" }}
               >
-                <Text size="md">
-                  {index + 1}. {q.questionText}
-                </Text>
+                <Group>
+                  <Text size="md">
+                    {index + 1}. {q.questionText}
+                  </Text>
+
+                  <Badge>{q.answers.length}</Badge>
+                </Group>
               </Card>
             </Link>
           ))}

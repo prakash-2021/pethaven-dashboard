@@ -160,7 +160,7 @@ export const useGetAnswerById = (id: string) => {
 export const useAttachPet = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, petId }: { id: string; petId: string }) => {
+    mutationFn: async ({ id, petId }: { id: string; petId: string[] }) => {
       const { data } = await axios.post(`/quiz-answers/${id}/attach-pet`, {
         id,
         petId,

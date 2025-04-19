@@ -1,7 +1,14 @@
 import { Box, Collapse, Group, useMantineTheme } from "@mantine/core";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-import { IconDoorFront } from "@/assets/icons";
+import {
+  IconDoorFront,
+  IconPets,
+  IconQuiz,
+  IconReport,
+  IconRequest,
+  IconStory,
+} from "@/assets/icons";
 import { IconProps } from "@/utils/types";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
@@ -17,8 +24,11 @@ interface LinksGroupProps {
 
 const data: LinksGroupProps[] = [
   { link: "/", label: "Dashboard", icon: IconDoorFront },
-  { link: "/pet", label: "Pets", icon: IconDoorFront },
-  { link: "/quiz", label: "Quiz", icon: IconDoorFront },
+  { link: "/pet", label: "Pets", icon: IconPets },
+  { link: "/quiz", label: "Quiz", icon: IconQuiz },
+  { link: "/pet-request", label: "Pet Request", icon: IconRequest },
+  { link: "/story", label: "Story", icon: IconStory },
+  { link: "/stray-dog", label: "Stray Dog", icon: IconReport },
 ];
 
 export function NavbarSimple({ activeLink }: { activeLink: string }) {

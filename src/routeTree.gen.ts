@@ -17,6 +17,7 @@ import { Route as AuthenticatedLayoutImport } from './routes/_authenticated/_lay
 import { Route as AuthenticatedLayoutIndexImport } from './routes/_authenticated/_layout/index'
 import { Route as AuthenticatedLayoutQuizIndexImport } from './routes/_authenticated/_layout/quiz/index'
 import { Route as AuthenticatedLayoutPetIndexImport } from './routes/_authenticated/_layout/pet/index'
+import { Route as AuthenticatedLayoutPetRequestIndexImport } from './routes/_authenticated/_layout/pet-request/index'
 import { Route as AuthenticatedLayoutQuizIdIndexImport } from './routes/_authenticated/_layout/quiz/$id/index'
 import { Route as AuthenticatedLayoutPetIdIndexImport } from './routes/_authenticated/_layout/pet/$id/index'
 import { Route as AuthenticatedLayoutAnswerIdIndexImport } from './routes/_authenticated/_layout/answer/$id/index'
@@ -56,6 +57,13 @@ const AuthenticatedLayoutPetIndexRoute =
   AuthenticatedLayoutPetIndexImport.update({
     id: '/pet/',
     path: '/pet/',
+    getParentRoute: () => AuthenticatedLayoutRoute,
+  } as any)
+
+const AuthenticatedLayoutPetRequestIndexRoute =
+  AuthenticatedLayoutPetRequestIndexImport.update({
+    id: '/pet-request/',
+    path: '/pet-request/',
     getParentRoute: () => AuthenticatedLayoutRoute,
   } as any)
 
@@ -112,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLayoutIndexImport
       parentRoute: typeof AuthenticatedLayoutImport
     }
+    '/_authenticated/_layout/pet-request/': {
+      id: '/_authenticated/_layout/pet-request/'
+      path: '/pet-request'
+      fullPath: '/pet-request'
+      preLoaderRoute: typeof AuthenticatedLayoutPetRequestIndexImport
+      parentRoute: typeof AuthenticatedLayoutImport
+    }
     '/_authenticated/_layout/pet/': {
       id: '/_authenticated/_layout/pet/'
       path: '/pet'
@@ -154,6 +169,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedLayoutRouteChildren {
   AuthenticatedLayoutIndexRoute: typeof AuthenticatedLayoutIndexRoute
+  AuthenticatedLayoutPetRequestIndexRoute: typeof AuthenticatedLayoutPetRequestIndexRoute
   AuthenticatedLayoutPetIndexRoute: typeof AuthenticatedLayoutPetIndexRoute
   AuthenticatedLayoutQuizIndexRoute: typeof AuthenticatedLayoutQuizIndexRoute
   AuthenticatedLayoutAnswerIdIndexRoute: typeof AuthenticatedLayoutAnswerIdIndexRoute
@@ -163,6 +179,8 @@ interface AuthenticatedLayoutRouteChildren {
 
 const AuthenticatedLayoutRouteChildren: AuthenticatedLayoutRouteChildren = {
   AuthenticatedLayoutIndexRoute: AuthenticatedLayoutIndexRoute,
+  AuthenticatedLayoutPetRequestIndexRoute:
+    AuthenticatedLayoutPetRequestIndexRoute,
   AuthenticatedLayoutPetIndexRoute: AuthenticatedLayoutPetIndexRoute,
   AuthenticatedLayoutQuizIndexRoute: AuthenticatedLayoutQuizIndexRoute,
   AuthenticatedLayoutAnswerIdIndexRoute: AuthenticatedLayoutAnswerIdIndexRoute,
@@ -189,6 +207,7 @@ export interface FileRoutesByFullPath {
   '': typeof AuthenticatedLayoutRouteWithChildren
   '/login': typeof LoginRoute
   '/': typeof AuthenticatedLayoutIndexRoute
+  '/pet-request': typeof AuthenticatedLayoutPetRequestIndexRoute
   '/pet': typeof AuthenticatedLayoutPetIndexRoute
   '/quiz': typeof AuthenticatedLayoutQuizIndexRoute
   '/answer/$id': typeof AuthenticatedLayoutAnswerIdIndexRoute
@@ -200,6 +219,7 @@ export interface FileRoutesByTo {
   '': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/': typeof AuthenticatedLayoutIndexRoute
+  '/pet-request': typeof AuthenticatedLayoutPetRequestIndexRoute
   '/pet': typeof AuthenticatedLayoutPetIndexRoute
   '/quiz': typeof AuthenticatedLayoutQuizIndexRoute
   '/answer/$id': typeof AuthenticatedLayoutAnswerIdIndexRoute
@@ -213,6 +233,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/_authenticated/_layout': typeof AuthenticatedLayoutRouteWithChildren
   '/_authenticated/_layout/': typeof AuthenticatedLayoutIndexRoute
+  '/_authenticated/_layout/pet-request/': typeof AuthenticatedLayoutPetRequestIndexRoute
   '/_authenticated/_layout/pet/': typeof AuthenticatedLayoutPetIndexRoute
   '/_authenticated/_layout/quiz/': typeof AuthenticatedLayoutQuizIndexRoute
   '/_authenticated/_layout/answer/$id/': typeof AuthenticatedLayoutAnswerIdIndexRoute
@@ -226,6 +247,7 @@ export interface FileRouteTypes {
     | ''
     | '/login'
     | '/'
+    | '/pet-request'
     | '/pet'
     | '/quiz'
     | '/answer/$id'
@@ -236,6 +258,7 @@ export interface FileRouteTypes {
     | ''
     | '/login'
     | '/'
+    | '/pet-request'
     | '/pet'
     | '/quiz'
     | '/answer/$id'
@@ -247,6 +270,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/_authenticated/_layout'
     | '/_authenticated/_layout/'
+    | '/_authenticated/_layout/pet-request/'
     | '/_authenticated/_layout/pet/'
     | '/_authenticated/_layout/quiz/'
     | '/_authenticated/_layout/answer/$id/'
@@ -293,6 +317,7 @@ export const routeTree = rootRoute
       "parent": "/_authenticated",
       "children": [
         "/_authenticated/_layout/",
+        "/_authenticated/_layout/pet-request/",
         "/_authenticated/_layout/pet/",
         "/_authenticated/_layout/quiz/",
         "/_authenticated/_layout/answer/$id/",
@@ -302,6 +327,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/_layout/": {
       "filePath": "_authenticated/_layout/index.tsx",
+      "parent": "/_authenticated/_layout"
+    },
+    "/_authenticated/_layout/pet-request/": {
+      "filePath": "_authenticated/_layout/pet-request/index.tsx",
       "parent": "/_authenticated/_layout"
     },
     "/_authenticated/_layout/pet/": {

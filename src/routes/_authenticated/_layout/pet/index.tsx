@@ -13,6 +13,7 @@ import {
   Group,
   Image,
   Modal,
+  Pagination,
   Select,
   Stack,
   Text,
@@ -42,18 +43,27 @@ function RouteComponent() {
     adoptionStatus: "AVAILABLE",
   });
 
-  const [imageFile, setImageFile] = useState<File | null>(null); // 👈 hold image separately
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(6); // initial totalPage is 1
 
   const { mutate } = useCreatePet();
   const { mutateAsync: uploadImage } = useUploadImage();
+
+  const { data } = useGetAllPets(page, totalPage);
+
+  // // Update total pages when data changes
+  // if (data && data.meta.totalPets !== totalPage) {
+  //   setTotalPage(data.meta.totalPets);
+  // }
 
   const handleAddPet = async () => {
     try {
       let uploadedImages: UploadedImage[] = [];
 
-      if (imageFile) {
+      if (imageFiles.length > 0) {
         const formData = new FormData();
-        formData.append("images", imageFile);
+        imageFiles.forEach((file) => formData.append("images", file));
         uploadedImages = await uploadImage(formData);
       }
 
@@ -79,7 +89,7 @@ function RouteComponent() {
               healthStatus: "",
               adoptionStatus: "AVAILABLE",
             });
-            setImageFile(null);
+            setImageFiles([]);
           },
         }
       );
@@ -91,11 +101,6 @@ function RouteComponent() {
   const handleDeletePet = (id: string) => {
     // setPets(pets.filter((pet) => pet.id !== id));
   };
-
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(10);
-
-  const { data } = useGetAllPets(page, totalPage);
 
   return (
     <Container size="sm" py={30} miw={"70vw"}>
@@ -135,6 +140,19 @@ function RouteComponent() {
             </Grid.Col>
           ))}
         </Grid>
+
+        {/* Pagination */}
+        {totalPage > 1 && (
+          <Group justify="center" mt="lg">
+            <Pagination
+              value={page}
+              onChange={setPage}
+              total={(data?.meta.totalPets || 0) / 5}
+              siblings={1}
+              boundaries={1}
+            />
+          </Group>
+        )}
       </Stack>
 
       {/* Add Pet Modal */}
@@ -155,6 +173,7 @@ function RouteComponent() {
           <Select
             label="Species"
             data={["Dog", "Cat"]}
+            placeholder="Enter species"
             value={newPet.species}
             onChange={(value) => setNewPet({ ...newPet, species: value || "" })}
           />
@@ -167,6 +186,7 @@ function RouteComponent() {
           />
           <Select
             label="Gender"
+            placeholder="Enter gender"
             data={["MALE", "FEMALE"]}
             value={newPet.gender}
             onChange={(value) => setNewPet({ ...newPet, gender: value || "" })}
@@ -178,7 +198,7 @@ function RouteComponent() {
             onChange={(e) => setNewPet({ ...newPet, color: e.target.value })}
           />
           <TextInput
-            label="Health Status"
+            label="Pet details, Health Status"
             placeholder="Enter health details"
             value={newPet.healthStatus}
             onChange={(e) =>
@@ -186,11 +206,12 @@ function RouteComponent() {
             }
           />
           <FileInput
-            label="Upload Image"
+            multiple
+            label="Upload Images"
             accept="image/*"
-            value={imageFile}
-            onChange={(file) => setImageFile(file)}
-            placeholder="Choose an image"
+            value={imageFiles}
+            onChange={(files) => setImageFiles(files || [])}
+            placeholder="Choose images"
           />
           <Group mt={20} justify="flex-end">
             <Button variant="default" onClick={close}>

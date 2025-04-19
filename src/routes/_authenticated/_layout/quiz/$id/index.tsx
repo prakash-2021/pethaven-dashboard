@@ -177,6 +177,7 @@ function RouteComponent() {
               onClick={() => {
                 // Call your update API here
                 createAnswer({ questionId: id, answerText: answer });
+                setAnswer("");
                 closeAnswer();
               }}
             >

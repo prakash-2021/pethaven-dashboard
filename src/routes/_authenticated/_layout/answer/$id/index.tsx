@@ -15,7 +15,7 @@ import {
   Group,
   Image,
   Modal,
-  Select,
+  MultiSelect,
   SelectProps,
   Stack,
   Text,
@@ -24,6 +24,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
+import { IconCheck } from "@tabler/icons-react";
 import {
   createFileRoute,
   Link,
@@ -73,11 +74,15 @@ function RouteComponent() {
 
   const { data: getPets } = useGetAllPets(1, 999);
 
-  const renderSelectOption: SelectProps["renderOption"] = ({ option }) => (
+  const renderSelectOption: SelectProps["renderOption"] = ({
+    option,
+    checked,
+  }) => (
     <Group gap="sm">
       {/* @ts-ignore */}
       <Avatar src={option.image} radius="xl" size="sm" />
       <Text>{option.label}</Text>
+      {checked && <IconCheck color="black" size={20} />}
     </Group>
   );
 
@@ -87,7 +92,7 @@ function RouteComponent() {
     isSuccess: attachSuccess,
   } = useAttachPet();
 
-  const [value, setValue] = useState<string | null>("");
+  const [value, setValue] = useState<string[]>([]);
 
   useEffect(() => {
     if (isError) {
@@ -105,6 +110,7 @@ function RouteComponent() {
         title: "Successfully added",
         message: "Pet added successfully",
       });
+      mutate({ answerIds: [id || ""] });
     }
   }, [attachSuccess]);
 
@@ -231,28 +237,39 @@ function RouteComponent() {
 
       <Modal
         opened={attachOpened}
-        onClose={closeAttach}
+        onClose={() => {
+          closeAttach();
+          setValue([]);
+        }}
         title="Add Pets"
         centered
+        size="xl"
+        maw={400}
       >
         <Stack>
-          <Select
+          <MultiSelect
             placeholder="Select pets"
             data={
               getPets?.pets.map((pet) => ({
                 value: pet.petId,
-                label: `${pet.name} (${pet.breed})`,
+                label: `${pet.name} (${pet.breed}, ${pet.species})`,
                 image: pet.images[0],
               })) || []
             }
             searchable
-            limit={10}
+            limit={20}
             renderOption={renderSelectOption}
             value={value}
             onChange={setValue}
           />
           <Group mt={20} justify="flex-end">
-            <Button variant="default" onClick={closeAttach}>
+            <Button
+              variant="default"
+              onClick={() => {
+                closeAttach();
+                setValue([]);
+              }}
+            >
               Cancel
             </Button>
             <Button
