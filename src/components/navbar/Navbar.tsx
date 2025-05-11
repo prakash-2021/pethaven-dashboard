@@ -28,6 +28,7 @@ const data: LinksGroupProps[] = [
   { link: "/quiz", label: "Quiz", icon: IconQuiz },
   { link: "/pet-request", label: "Pet Request", icon: IconRequest },
   { link: "/story", label: "Story", icon: IconStory },
+  { link: "/chat", label: "Chat", icon: IconStory },
   { link: "/stray-dog", label: "Stray Dog", icon: IconReport },
 ];
 

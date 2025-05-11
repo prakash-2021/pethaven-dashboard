@@ -36,6 +36,7 @@ function RouteComponent() {
               submittedAt,
               user,
             }}
+            key={applicationId}
           />
         )
       )}

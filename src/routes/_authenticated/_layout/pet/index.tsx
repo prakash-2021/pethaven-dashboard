@@ -20,7 +20,7 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDebouncedValue, useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
@@ -48,9 +48,12 @@ function RouteComponent() {
   const [totalPage, setTotalPage] = useState(6); // initial totalPage is 1
 
   const { mutate } = useCreatePet();
-  const { mutateAsync: uploadImage } = useUploadImage();
+  const { mutateAsync: uploadImage, isPending } = useUploadImage();
 
-  const { data } = useGetAllPets(page, totalPage);
+  const [search, setSearch] = useState("");
+  const [searchValue] = useDebouncedValue(search, 250);
+
+  const { data } = useGetAllPets(page, totalPage, searchValue);
 
   // // Update total pages when data changes
   // if (data && data.meta.totalPets !== totalPage) {
@@ -110,48 +113,65 @@ function RouteComponent() {
           <Button onClick={open}>Add new pet</Button>
         </Group>
 
-        <Grid>
-          {data?.pets.map((pet) => (
-            <Grid.Col key={pet.petId} span={{ base: 12, sm: 6, md: 4 }}>
-              <Link to={pet.petId}>
-                <Card shadow="sm" padding="lg" radius="md" withBorder>
-                  <Card.Section>
-                    <Image src={pet.images[0]} height={180} alt={pet.name} />
-                  </Card.Section>
-                  <Stack mt="md">
-                    <Title order={4}>{pet.name}</Title>
-                    <Text size="sm">
-                      {pet.species} - {pet.breed}
-                    </Text>
-                    <Text size="sm">Age: {pet.age} years</Text>
-                    <Text size="sm">Status: {pet.adoptionStatus}</Text>
-                    <Group>
-                      <Button
-                        color="red"
-                        size="xs"
-                        onClick={() => handleDeletePet(pet.petId)}
-                      >
-                        Delete
-                      </Button>
-                    </Group>
-                  </Stack>
-                </Card>
-              </Link>
-            </Grid.Col>
-          ))}
-        </Grid>
+        <TextInput
+          maw={400}
+          placeholder="Search pets using name, breed"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-        {/* Pagination */}
-        {totalPage > 1 && (
-          <Group justify="center" mt="lg">
-            <Pagination
-              value={page}
-              onChange={setPage}
-              total={(data?.meta.totalPets || 0) / 5}
-              siblings={1}
-              boundaries={1}
-            />
-          </Group>
+        {!!data?.pets.length ? (
+          <>
+            <Grid>
+              {data?.pets.map((pet) => (
+                <Grid.Col key={pet.petId} span={{ base: 12, sm: 6, md: 4 }}>
+                  <Link to={pet.petId}>
+                    <Card shadow="sm" padding="lg" radius="md" withBorder>
+                      <Card.Section>
+                        <Image
+                          src={pet.images[0]}
+                          height={180}
+                          alt={pet.name}
+                        />
+                      </Card.Section>
+                      <Stack mt="md">
+                        <Title order={4}>{pet.name}</Title>
+                        <Text size="sm">
+                          {pet.species} - {pet.breed}
+                        </Text>
+                        <Text size="sm">Age: {pet.age} years</Text>
+                        <Text size="sm">Status: {pet.adoptionStatus}</Text>
+                        <Group>
+                          <Button
+                            color="red"
+                            size="xs"
+                            onClick={() => handleDeletePet(pet.petId)}
+                          >
+                            Delete
+                          </Button>
+                        </Group>
+                      </Stack>
+                    </Card>
+                  </Link>
+                </Grid.Col>
+              ))}
+            </Grid>
+
+            {/* Pagination */}
+            {totalPage > 1 && (
+              <Group justify="center" mt="lg">
+                <Pagination
+                  value={page}
+                  onChange={setPage}
+                  total={(data?.meta.totalPets || 0) / 5}
+                  siblings={1}
+                  boundaries={1}
+                />
+              </Group>
+            )}
+          </>
+        ) : (
+          <>No results</>
         )}
       </Stack>
 
@@ -217,7 +237,9 @@ function RouteComponent() {
             <Button variant="default" onClick={close}>
               Cancel
             </Button>
-            <Button onClick={handleAddPet}>Add</Button>
+            <Button onClick={handleAddPet}>
+              {isPending ? "Adding" : "Add"}
+            </Button>
           </Group>
         </Stack>
       </Modal>

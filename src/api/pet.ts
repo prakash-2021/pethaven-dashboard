@@ -3,12 +3,16 @@ import { Pet, Pets } from "@/types/pet";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // Fetch all pets
-export const useGetAllPets = (page?: number, pageSize?: number) => {
+export const useGetAllPets = (
+  page?: number,
+  pageSize?: number,
+  search?: string
+) => {
   return useQuery({
-    queryKey: ["get-all-pets", { page, pageSize }],
+    queryKey: ["get-all-pets", { page, pageSize, search }],
     queryFn: async () => {
       const { data } = await axios.get<Pets>("/pet", {
-        params: { page, pageSize },
+        params: { page, pageSize, search },
       });
       return data;
     },

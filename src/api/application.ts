@@ -3,7 +3,7 @@ import { AdoptionApplication } from "@/types/application";
 import { Pet } from "@/types/pet";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-// Fetch all pets
+// Fetch all Applications
 export const useGetAllApplication = () => {
   return useQuery({
     queryKey: ["get-all-application"],
@@ -14,21 +14,26 @@ export const useGetAllApplication = () => {
   });
 };
 
-// Update pet
+// Update Application
 export const useUpdateApplication = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({
       id,
-      updatedApplication,
+      status,
+      email,
+      petName,
     }: {
       id: string;
-      updatedApplication: Partial<AdoptionApplication>;
+      status: string;
+      petName: string;
+      email: string;
     }) => {
-      const { data } = await axios.put<Pet>(
-        `/applications/${id}`,
-        updatedApplication
-      );
+      const { data } = await axios.put<Pet>(`/applications/${id}/status`, {
+        status,
+        petName,
+        email,
+      });
       return data;
     },
     onSuccess: () => {

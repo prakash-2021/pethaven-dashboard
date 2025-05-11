@@ -173,3 +173,78 @@ export const useAttachPet = () => {
     },
   });
 };
+
+// const quizQuestions = [
+//   {
+//     question: "What is your ideal pet's activity level?",
+//     options: [
+//       "Very active, loves to run and play outside.",
+//       "Moderately active, enjoys walks and short play sessions.",
+//       "Relaxed, prefers lounging and short walks.",
+//       "Low energy, enjoys sitting by your side or on your lap.",
+//     ],
+//   },
+//   {
+//     question: "How much time can you dedicate to grooming your pet?",
+//     options: [
+//       "I enjoy grooming and can do it regularly.",
+//       "I don't mind grooming a little bit.",
+//       "I would prefer a low-maintenance pet with minimal grooming needs.",
+//       "I prefer pets that don’t require any grooming.",
+//     ],
+//   },
+//   {
+//     question: "How much space do you have for your pet?",
+//     options: [
+//       "I have a large house with a yard.",
+//       "I live in an apartment with some outdoor space nearby.",
+//       "I live in an apartment and don’t have much outdoor space.",
+//       "I have a small space but love to take my pet outside regularly.",
+//     ],
+//   },
+//   {
+//     question: "How would you describe your ideal pet's personality?",
+//     options: [
+//       "Friendly, playful, and loves everyone.",
+//       "Calm, affectionate, and enjoys cuddles.",
+//       "Independent, but enjoys occasional attention.",
+//       "Protective, loyal, and always by my side.",
+//     ],
+//   },
+//   {
+//     question: "Do you prefer a dog or a cat as a pet?",
+//     options: [
+//       "I prefer a dog—someone who loves adventure and outdoor activities.",
+//       "I prefer a cat—independent and easygoing.",
+//       "I like both, depending on personality and energy levels.",
+//       "I have no preference.",
+//     ],
+//   },
+//   {
+//     question: "How do you feel about pets that bark or meow loudly?",
+//     options: [
+//       "I don’t mind some noise—it adds personality.",
+//       "I’d prefer a quieter pet.",
+//       "I need a pet that is almost silent.",
+//       "I enjoy interacting with vocal pets.",
+//     ],
+//   },
+//   {
+//     question: "Are you looking for a pet with specific training needs?",
+//     options: [
+//       "Yes, I want a pet that I can train easily.",
+//       "I’m okay with a pet that needs some training but can manage.",
+//       "I’d prefer a pet that doesn’t require much training.",
+//       "I want a pet that already knows basic commands and is easy to handle.",
+//     ],
+//   },
+//   {
+//     question: "How do you feel about shedding?",
+//     options: [
+//       "I don’t mind shedding—regular cleaning is okay.",
+//       "I prefer a pet that sheds less.",
+//       "I prefer no shedding at all.",
+//       "I love pets with thick, fluffy coats, shedding included!",
+//     ],
+//   },
+// ];

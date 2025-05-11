@@ -1,5 +1,18 @@
-import { Badge, Card, Divider, Group, Image, Stack, Text } from "@mantine/core";
-import React from "react";
+import { useUpdateApplication } from "@/api/application";
+import {
+  Badge,
+  Button,
+  Card,
+  Divider,
+  Group,
+  Image,
+  Modal,
+  Stack,
+  Text,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
+import React, { useEffect, useState } from "react";
 
 type Application = {
   applicationId: string;
@@ -45,13 +58,36 @@ const PetApplicationCard: React.FC<Props> = ({ application }) => {
     hasOtherPets,
   } = application;
 
+  const { mutate, isSuccess } = useUpdateApplication();
+
+  const [isOpen, { open, close }] = useDisclosure(false);
+  const [id, setId] = useState({ id: "", status: "", petName: "", email: "" });
+
+  useEffect(() => {
+    if (isSuccess) {
+      setId({ id: "", status: "", petName: "", email: "" });
+      notifications.show({
+        title: "Updated Successfully",
+        message: "Application updated successfully!",
+      });
+    }
+  }, [isSuccess]);
+
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Group justify="space-between">
         <Text fw={700} size="lg">
           Application Status
         </Text>
-        <Badge color={status === "PENDING" ? "yellow" : "green"}>
+        <Badge
+          color={
+            status === "PENDING"
+              ? "yellow"
+              : status === "ACCEPTED"
+                ? "green"
+                : "red"
+          }
+        >
           {status}
         </Badge>
       </Group>
@@ -75,9 +111,7 @@ const PetApplicationCard: React.FC<Props> = ({ application }) => {
           <Text>
             <strong>Color:</strong> {pet.color}
           </Text>
-          <Text>
-            <strong>Size:</strong> {pet.size}
-          </Text>
+
           <Text size="sm" c="dimmed">
             {pet.healthStatus}
           </Text>
@@ -101,7 +135,7 @@ const PetApplicationCard: React.FC<Props> = ({ application }) => {
 
       <Divider my="sm" />
 
-      <Stack gap="xs">
+      <Stack gap="xs" mb="sm">
         <Text fw={500}>Application Info</Text>
         <Text size="sm">Reason: {reason}</Text>
         <Text size="sm">Experience: {hasPetExperience}</Text>
@@ -111,6 +145,63 @@ const PetApplicationCard: React.FC<Props> = ({ application }) => {
           Submitted: {new Date(submittedAt).toLocaleString()}
         </Text>
       </Stack>
+
+      <Group>
+        <Button
+          onClick={() => {
+            setId({
+              id: application.applicationId,
+              status: "ACCEPTED",
+              email: application.user.email,
+              petName: application.pet.name,
+            });
+            open();
+          }}
+          disabled={application.status === "ACCEPTED"}
+        >
+          Accept
+        </Button>
+        <Button
+          variant="default"
+          onClick={() => {
+            setId({
+              id: application.applicationId,
+              status: "REJECTED",
+              email: application.user.email,
+              petName: application.pet.name,
+            });
+            open();
+          }}
+          disabled={application.status === "REJECTED"}
+        >
+          Reject
+        </Button>
+      </Group>
+
+      <Modal
+        opened={isOpen}
+        onClose={close}
+        title={`Update Status to (${id.status})`}
+        centered
+      >
+        <Stack>
+          <Text>Are you sure you want to update the application status?</Text>
+          <Group mt={20} justify="flex-end">
+            <Button variant="default" onClick={close}>
+              Cancel
+            </Button>
+            <Button
+              color="red"
+              onClick={() => {
+                mutate(id);
+                close();
+              }}
+            >
+              Yes, Update
+            </Button>
+          </Group>
+        </Stack>
+      </Modal>
     </Card>
   );
 };

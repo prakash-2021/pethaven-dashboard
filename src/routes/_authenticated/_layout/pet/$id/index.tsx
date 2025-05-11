@@ -117,7 +117,6 @@ function RouteComponent() {
             <Text>Species: {data.species}</Text>
             <Text>Age: {data.age} years</Text>
             <Text>Gender: {data.gender}</Text>
-            <Text>Size: {data.size}</Text>
             <Text>Color: {data.color}</Text>
             <Text>Details: {data.healthStatus}</Text>
             <Text>Adoption Status: {data.adoptionStatus}</Text>
@@ -183,6 +182,14 @@ function RouteComponent() {
                   value={editedPet.healthStatus}
                   onChange={(e) =>
                     setEditedPet({ ...editedPet, healthStatus: e.target.value })
+                  }
+                />
+                <Select
+                  label="Available Status"
+                  data={["AVAILABLE", "ADOPTED"]}
+                  value={editedPet.adoptionStatus}
+                  onChange={(value) =>
+                    setEditedPet({ ...editedPet, adoptionStatus: value || "" })
                   }
                 />
                 <FileInput
